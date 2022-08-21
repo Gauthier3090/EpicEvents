@@ -6,6 +6,7 @@ from .models import User
 admin.site.unregister(Group)
 
 
+@admin.register(User)
 class CustomUserAdmin(ModelAdmin):
     fieldsets = (
         (None,
@@ -16,6 +17,3 @@ class CustomUserAdmin(ModelAdmin):
     readonly_fields = ('date_joined', 'last_login')
     list_display = ('username', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'team')
     list_filter = ('team', 'is_active')
-
-
-admin.site.register(User, CustomUserAdmin)
