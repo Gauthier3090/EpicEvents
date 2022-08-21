@@ -1,5 +1,29 @@
-from rest_framework import generics, permissions
-from .serializers import SerializersPassword
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from .serializers import SerializersPassword, UserSerializer
+from .models import User
+
+
+class CreateUser(generics.CreateAPIView):
+    
+    http_method_names = ['post', 'options']
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        data = request.data.copy()
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.save()
+            User.objects.create(
+                first_name=user.first_name,
+                last_name=user.last_name,
+                password=user.password,
+                email=user.email,
+                phone=user.phone,
+                mobile=user.mobile
+            )
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordUpdate(generics.UpdateAPIView):
