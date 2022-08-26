@@ -26,7 +26,7 @@ class Client(models.Model):
             stat = "PROSPECT"
         else:
             stat = "CONVERTED"
-        return f"Client #{self.id} : {self.last_name}, {self.first_name} ({stat})"
+        return f"Client #{self.id} : {self.lastname}, {self.firstname} ({stat})"
 
 
 class Contract(models.Model):
@@ -50,7 +50,7 @@ class Contract(models.Model):
     payment_due = models.DateField()
 
     def __str__(self):
-        name = f"{self.client.last_name}, {self.client.first_name}"
+        name = f"{self.client.lastname}, {self.client.firstname}"
         due = self.payment_due.strftime('%Y-%m-%d')
         if self.status is False:
             stat = "NOT SIGNED"
@@ -84,7 +84,7 @@ class Event(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        name = f"{self.contract.client.last_name}, {self.contract.client.first_name}"
+        name = f"{self.contract.client.lastname}, {self.contract.client.firstname}"
         date = self.event_date.strftime('%Y-%m-%d')
         if self.event_status is False:
             stat = "UPCOMING"
