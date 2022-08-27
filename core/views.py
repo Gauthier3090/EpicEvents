@@ -19,6 +19,7 @@ from .serializers import (
     EventSerializer,
 )
 
+
 class ClientList(generics.ListCreateAPIView):
     serializer_class = ClientSerializer
     permission_classes = [IsAuthenticated, IsManager | ClientPermissions]

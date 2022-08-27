@@ -15,6 +15,7 @@ class CreateUser(generics.CreateAPIView):
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
             User.objects.create(
+                username=user.first_name,
                 first_name=user.first_name,
                 last_name=user.last_name,
                 password=user.password,

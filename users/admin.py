@@ -10,10 +10,10 @@ admin.site.unregister(Group)
 class CustomUserAdmin(ModelAdmin):
     fieldsets = (
         (None,
-         {'fields': ('username', 'first_name', 'last_name', 'email', 'mobile', 'phone', 'password')}),
+         {'fields': ('first_name', 'last_name', 'email', 'mobile', 'phone', 'password')}),
         ('Permissions', {'fields': ('team', 'is_active')}),
         ('Important Dates', {'fields': ('date_joined', 'last_login')})
     )
     readonly_fields = ('date_joined', 'last_login')
-    list_display = ('username', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'team')
+    list_display = ('first_name', 'last_name', 'email', 'phone', 'mobile', 'team')
     list_filter = ('team', 'is_active')
