@@ -7,6 +7,7 @@ from .models import Client, Contract
 
 class IsManager(permissions.BasePermission):
     def has_permission(self, request, view):
+        print(request.user)
         return request.user.team == MANAGEMENT and request.method in permissions.SAFE_METHODS
 
     def has_object_permission(self, request, view, obj):
