@@ -7,8 +7,8 @@ from .models import Client, Contract
 
 class IsManager(permissions.BasePermission):
     def has_permission(self, request, view):
-        print(request.user)
-        return request.user.team == MANAGEMENT and request.method in permissions.SAFE_METHODS
+        print(permissions.SAFE_METHODS, request.method, request.user.team)
+        return request.user.team == MANAGEMENT
 
     def has_object_permission(self, request, view, obj):
         return self.has_permission(request, view)
@@ -23,7 +23,7 @@ class ClientPermissions(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method == 'DELETE':
             return request.user.team == SALES and obj.status is False
-        elif request.user.team == SUPPORT and request.method in permissions.SAFE_METHODS:
+        elif request.user.team == SUPPORT:
             return obj in Client.objects.filter(contract__event__support_contact=request.user)
         return request.user == obj.sales_contact or obj.status is False
 

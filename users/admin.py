@@ -10,7 +10,7 @@ admin.site.unregister(Group)
 class CustomUserAdmin(ModelAdmin):
     fieldsets = (
         (None,
-         {'fields': ('first_name', 'last_name', 'email', 'mobile', 'phone', 'password')}),
+         {'fields': ('username', 'first_name', 'last_name', 'email', 'mobile', 'phone', 'password')}),
         ('Permissions', {'fields': ('team', 'is_active')}),
         ('Important Dates', {'fields': ('date_joined', 'last_login')})
     )

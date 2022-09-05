@@ -38,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('id', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'team', 'password')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'team', 'password')
         extra_kwargs = {
             'first_name': {'required': True},
             'last_name': {'required': True},
@@ -49,6 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         user = User(
+            username=self.validated_data['username'],
             first_name=self.validated_data['first_name'],
             last_name=self.validated_data['last_name'],
             email=self.validated_data['email'],
