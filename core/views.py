@@ -22,8 +22,7 @@ class ClientsCreateAndList(ListCreateAPIView):
     serializer_class = ClientSerializer
     permission_classes = [IsAuthenticated, ClientPermissions | IsManager]
     filter_backends = [SearchFilter, DjangoFilterBackend]
-    search_fields = ["^first_name", "^last_name", "^email", "^company_name"]
-    filterset_fields = ["status"]
+    search_fields = ["lastname", "email"]
 
     def get_queryset(self):
         if self.request.user.team == SUPPORT:
@@ -37,14 +36,14 @@ class ClientsCreateAndList(ListCreateAPIView):
         return Client.objects.all()
 
     def post(self, request, *args, **kwargs):
+        if Client.objects.filter(email=self.request.data['email']).exists():
+            return Response({"error": "This client already exists."})
         serializer = ClientSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True) and Client.objects.filter(email=serializer.data["email"]).exists():
-            return Response(data={'detail': 'This client already has a profile'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
+        if serializer.is_valid(raise_exception=True):
             if serializer.validated_data["status"] is True:
                 serializer.validated_data["sales_contact"] = request.user
             serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class ClientDetail(generics.RetrieveUpdateDestroyAPIView):

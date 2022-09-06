@@ -1,6 +1,5 @@
 from rest_framework import permissions
 from rest_framework.exceptions import PermissionDenied
-
 from users.models import MANAGEMENT, SALES, SUPPORT
 from .models import Client, Contract
 
@@ -8,7 +7,7 @@ from .models import Client, Contract
 class IsManager(permissions.BasePermission):
     def has_permission(self, request, view):
         print(permissions.SAFE_METHODS, request.method, request.user.team)
-        return request.user.team == MANAGEMENT
+        return request.user.team == MANAGEMENT and request.method in permissions.SAFE_METHODS
 
     def has_object_permission(self, request, view, obj):
         return self.has_permission(request, view)
