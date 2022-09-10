@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from users.models import MANAGEMENT
+from .models import MANAGEMENT
 
 
 class IsManager(permissions.BasePermission):

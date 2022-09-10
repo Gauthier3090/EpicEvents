@@ -3,7 +3,7 @@ from rest_framework import status, generics
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from EpicEvents.permissions import IsManager
+from users.permissions import IsManager
 from contracts.models import Contract
 from contracts.permissions import ContractPermissions
 from contracts.serializers import ContractSerializer

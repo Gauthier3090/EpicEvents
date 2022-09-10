@@ -5,7 +5,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from EpicEvents.permissions import IsManager
+from users.permissions import IsManager
 from users.models import SALES, SUPPORT
 from .models import Client
 from .permissions import ClientPermissions
