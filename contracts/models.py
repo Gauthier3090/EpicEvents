@@ -10,7 +10,7 @@ class Contract(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={'team': SALES}
+        limit_choices_to={'team': 2}
     )
     client = models.ForeignKey(
         to=Client,

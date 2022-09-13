@@ -20,11 +20,11 @@ class ClientsCreateAndList(ListCreateAPIView):
     search_fields = ["lastname", "email"]
 
     def get_queryset(self):
-        if self.request.user.team == SUPPORT:
+        if self.request.user.team.name == SUPPORT:
             return Client.objects.filter(
                 contract__event__support_contact=self.request.user
             ).distinct()
-        elif self.request.user.team == SALES:
+        elif self.request.user.team.name == SALES:
             clients_status_false = Client.objects.filter(status=False)
             own = Client.objects.filter(sales_contact=self.request.user)
             return clients_status_false | own

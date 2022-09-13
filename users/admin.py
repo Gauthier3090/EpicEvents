@@ -9,7 +9,7 @@ admin.site.unregister(Group)
 @admin.register(User)
 class CustomUserAdmin(ModelAdmin):
     fieldsets = (
-        (None,
+        ("Personal Info",
          {'fields': ('username', 'first_name', 'last_name', 'email', 'mobile', 'phone', 'password')}),
         ('Permissions', {'fields': ('team', 'is_active')}),
         ('Important Dates', {'fields': ('date_joined', 'last_login')})
