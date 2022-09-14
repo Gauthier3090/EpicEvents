@@ -5,7 +5,9 @@ from .models import Client
 
 class ClientPermissions(permissions.BasePermission):
     def has_permission(self, request, view):
+        print(permissions.SAFE_METHODS)
         if request.user.team.name == SUPPORT:
+            permissions.SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
             return request.method in permissions.SAFE_METHODS
         return request.user.team.name == SALES
 
