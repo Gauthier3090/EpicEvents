@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import MinValueValidator
 from django.db import models
 from clients.models import Client
 from users.models import SALES
@@ -21,7 +22,7 @@ class Contract(models.Model):
     status = models.BooleanField(default=False, verbose_name="Signed")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    amount = models.FloatField()
+    amount = models.FloatField(validators=[MinValueValidator(0.0)])
     payment_due = models.DateField()
 
     def __str__(self):
